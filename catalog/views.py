@@ -1,40 +1,19 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Product
+from django.views.generic import TemplateView, DetailView, ListView
 
-def home(request):
-    product = Product.objects.all()
-    context = {
-        'product': product
-    }
-    if request.method == 'GET':
-        return render(request, 'home.html', context=context)
-    return render(request, 'home.html', context=context)
+from catalog.models import Product
 
 
-def contacts(request):
-    if request.method == 'GET':
-        return render(request, 'contacts.html')
-    return render(request, 'contacts.html')
+class HomeListView(ListView):
+    model = Product
+    template_name = 'home.html'
+    context_object_name = 'products'
 
 
-def one_product(request, id_product):
-    product = get_object_or_404(Product, id=id_product)
-    context = {
-        'product': product
-    }
-    return render(request, 'product.html', context=context)
+class ContactsTemplateView(TemplateView):
+    template_name = 'contacts.html'
 
 
-# def one_product(request, id_product):
-#     product = get_object_or_404(Product, id=id_product)
-#
-#     # Получение ID предыдущего и следующего товара
-#     previous_product = Product.objects.filter(id__lt=id_product).order_by('-id').first()
-#     next_product = Product.objects.filter(id__gt=id_product).order_by('id').first()
-#
-#     context = {
-#         'product': product,
-#         'previous_product': previous_product,
-#         'next_product': next_product,
-#     }
-#     return render(request, 'product.html', context=context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product_info.html'
+    context_object_name = 'product'
