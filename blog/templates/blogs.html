@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load my_tags %}
+{% block title %}Лента{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    {{ form.as_p }}
+
+<p>Ну же... Должно же отображаться!</p>
+
+  {% for blog in blogentrance %}
+
+      <div class="card mb-3 m-2" style="max-width: 5b00px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ blog.preview | media_filter }}" class="img-fluid rounded-start m-2" alt="Изображение">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ blog.header }}</h5>
+          <p class="card-text">{{ blog.content | truncatechars:100 }}</p>
+          <p class="card-text">
+            <small class="text-body-secondary">Было создано: {{ blog.created_at | date:'d M Y' }}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+{% endblock %}
