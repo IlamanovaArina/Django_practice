@@ -10,17 +10,22 @@
 <div class="card mb-3" style="max-width: 1300px;">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="{{ blog.preview }}" class="img-fluid rounded-start" alt="Изображение">
+      <img src="{{ blogentery.preview | media_filter }}" class="img-fluid rounded-start" alt="Изображение">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{ blog.header }}</h5>
-        <p class="card-text">{{ blog.content }}</p>
-        <p class="card-text"><small class="text-body-secondary">Было создано: {{ blog.created_at | date:'d M Y'
-          }}</small></p>
+        <h5 class="card-title">{{ blogentery.header }}</h5>
+        <p class="card-text">{{ blogentery.content }}</p>
+        <p class="card-text">
+          <small class="text-body-secondary">Было создано: {{ blogentery.created_at | date:'d M Y' }}</small>
+          <a href="/blog/{{ blogentery.pk }}/edit" class="btn btn-secondary">Редактировать</a>
+          <a href="/blog/{{ blogentery.pk }}/delete" class="btn btn-danger">Удалить</a>
+          <a href="/blogs/" class="btn btn-primary">Вернуться к списку</a>
+        </p>
       </div>
     </div>
   </div>
 </div>
+
 
 {% endblock %}

@@ -15,12 +15,11 @@
     <nav class="ms-5">
         <a class="p-2 btn btn-outline-primary" href="/home/">Каталог</a>
         <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
+        <a class="p-2 btn btn-outline-primary" href="/blogs/">Блоги</a>
     </nav>
 </div>
 
     <div class="container mt-5">
-        {% csrf_token %}
-        {{ form.as_p }}
         {% block content %}
 
         {% endblock %}
