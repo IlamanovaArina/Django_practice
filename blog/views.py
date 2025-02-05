@@ -1,8 +1,6 @@
 from django.shortcuts import reverse
-
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-
 from blog.models import BlogEntry
 
 
