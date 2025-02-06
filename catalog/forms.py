@@ -15,23 +15,23 @@ class EditingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EditingForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-check',
             'placeholder': 'Введите название'
         })
         self.fields['description'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-check ',
             'placeholder': 'Введите описание'
         })
         self.fields['imagery'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-check',
             'placeholder': 'Добавьте изображение'
         })
         self.fields['price'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-check',
             'placeholder': '10 000'
         })
         self.fields['category'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-check',
             'placeholder': 'Выберите категорию'
         })
 
