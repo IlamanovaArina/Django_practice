@@ -5,8 +5,8 @@ from catalog.models import Product
 
 SPAMS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар', ]
 
-class EditingForm(forms.ModelForm):
 
+class EditingForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'description', 'imagery', 'price', 'category']
@@ -15,23 +15,23 @@ class EditingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EditingForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs.update({
-            'class': 'form-check',
+            'class': 'form-control',
             'placeholder': 'Введите название'
         })
         self.fields['description'].widget.attrs.update({
-            'class': 'form-check ',
+            'class': 'form-control ',
             'placeholder': 'Введите описание'
         })
         self.fields['imagery'].widget.attrs.update({
-            'class': 'form-check',
+            'class': 'form-control',
             'placeholder': 'Добавьте изображение'
         })
         self.fields['price'].widget.attrs.update({
-            'class': 'form-check',
+            'class': 'form-control',
             'placeholder': '10 000'
         })
         self.fields['category'].widget.attrs.update({
-            'class': 'form-check',
+            'class': 'form-control',
             'placeholder': 'Выберите категорию'
         })
 
@@ -45,8 +45,8 @@ class EditingForm(forms.ModelForm):
             if spam in description:
                 self.add_error('description', f'Описание не может содержать запрещённые слова. Вы ввели: {spam}')
 
-
     def clean_price(self):
         price = self.cleaned_data.get('price')
-        if price < 0:
+        if price and price < 0:
             raise ValidationError('Цена не должна быть отрицательной')
+        return price
