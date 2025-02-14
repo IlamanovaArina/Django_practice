@@ -2,7 +2,9 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 from django.core.mail import send_mail
 from django.contrib.auth import login
-from .forms import MyUserCreation
+from users.forms import MyUserCreation
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 class RegisterView(FormView):
     form_class = MyUserCreation
@@ -18,6 +20,15 @@ class RegisterView(FormView):
     def send_welcome_email(self, user_email):
         subject = 'Добро пожаловать в наш сервис'
         message = 'Спасибо, что зарегистрировались в нашем сервисе!'
-        from_email = ''
+        # from_email = ''
         recipient_list = [user_email]
         send_mail(subject, message, recipient_list)
+
+
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+    success_url = reverse_lazy('home')
+
+
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('home')

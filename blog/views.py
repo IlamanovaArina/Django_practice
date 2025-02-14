@@ -1,5 +1,6 @@
 from django.shortcuts import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from blog.models import BlogEntry
 
@@ -14,7 +15,6 @@ class BlogsListView(ListView):
         return queryset.filter(publication_attribute=True)
 
 
-
 class BlogDetailView(DetailView):
     model = BlogEntry
     template_name = 'blog_detail.html'
@@ -27,14 +27,14 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = BlogEntry
     template_name = 'blog_create.html'
     fields = ['header', 'content', 'preview', 'publication_attribute',]
     success_url = reverse_lazy('blog:blogs')
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = BlogEntry
     template_name = 'blog_edit.html'
     fields = ['header', 'content', 'preview']
@@ -44,7 +44,7 @@ class BlogUpdateView(UpdateView):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = BlogEntry
     template_name = 'blog_delete.html'
     success_url = '/blogs/'

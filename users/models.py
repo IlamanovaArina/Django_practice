@@ -13,3 +13,7 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+# user = CustomUser(email='email')
+# user.set_password('password')
+# user.save()

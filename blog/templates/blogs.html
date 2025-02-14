@@ -30,9 +30,12 @@
 
     </div>
     {% endfor %}
+
+    {% if user.is_authenticated %}
     <div class="container mt-5">
         <a href="blog/new/" class="btn btn-primary mb-3">Создать запись</a>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}
