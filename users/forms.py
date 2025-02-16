@@ -4,12 +4,11 @@ from django import forms
 from users.models import CustomUser
 
 
-class MyUserCreation(UserCreationForm):
+class RegisterForm(UserCreationForm):
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = CustomUser
         fields = ['email', 'avatar', 'phone_number', 'country', 'username',]
-        # fields = '__all__'
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data.get('phone_number')
@@ -18,7 +17,7 @@ class MyUserCreation(UserCreationForm):
         return phone_number
 
     def __init__(self, *args, **kwargs):
-        super(MyUserCreation, self).__init__(*args, **kwargs)
+        super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
             'placeholder': 'Введите электронную почту'
@@ -46,36 +45,4 @@ class MyUserCreation(UserCreationForm):
         self.fields['password2'].widget.attrs.update({
             'class': 'form-control',
             'placeholder': 'Введите тот же пароль'
-        })
-
-
-class CustomAuthenticationForm(AuthenticationForm):
-    model = CustomUser
-    fields = ['email', ]
-
-    # def __init__(self, *args, **kwargs):
-    #     super(CustomAuthenticationForm, self).__init__(*args, **kwargs)
-    #     self.fields['email'].widget.attrs.update({
-    #         'class': 'form-control',
-    #         'placeholder': 'Введите электронную почту'
-    #     })
-    #     self.fields['password'].widget.attrs.update({
-    #         'class': 'form-control',
-    #         'placeholder': 'Введите электронную почту'
-    #     })
-
-class RegisterForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['email', 'password']
-
-    def __init__(self, *args, **kwargs):
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Введите электронную почту'
-        })
-        self.fields['password'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Введите электронную почту'
         })

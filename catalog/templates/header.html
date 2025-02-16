@@ -3,8 +3,8 @@
     <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
         продать </p>
     {% if user.is_authenticated %}
-    <p class="lead">Пользователь!</p>
+    <p class="lead">{{ user.email }}!</p>
     {% else %}
-    ____
+    <p class="lead">Гость!</p>
     {% endif %}
 </div>
