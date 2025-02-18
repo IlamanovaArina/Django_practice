@@ -8,5 +8,5 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description',)
 
 @admin.register(Category)
-class ProductAdmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')

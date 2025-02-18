@@ -1,40 +1,41 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Product
-
-def home(request):
-    product = Product.objects.all()
-    context = {
-        'product': product
-    }
-    if request.method == 'GET':
-        return render(request, 'home.html', context=context)
-    return render(request, 'home.html', context=context)
+from django.views.generic import TemplateView, DetailView, ListView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from catalog.models import Product
+from .forms import EditingForm
 
 
-def contacts(request):
-    if request.method == 'GET':
-        return render(request, 'contacts.html')
-    return render(request, 'contacts.html')
+class HomeListView(ListView):
+    model = Product
+    template_name = 'home.html'
+    context_object_name = 'products'
 
 
-def one_product(request, id_product):
-    product = get_object_or_404(Product, id=id_product)
-    context = {
-        'product': product
-    }
-    return render(request, 'product.html', context=context)
+class ContactsTemplateView(TemplateView):
+    template_name = 'contacts.html'
 
 
-# def one_product(request, id_product):
-#     product = get_object_or_404(Product, id=id_product)
-#
-#     # Получение ID предыдущего и следующего товара
-#     previous_product = Product.objects.filter(id__lt=id_product).order_by('-id').first()
-#     next_product = Product.objects.filter(id__gt=id_product).order_by('id').first()
-#
-#     context = {
-#         'product': product,
-#         'previous_product': previous_product,
-#         'next_product': next_product,
-#     }
-#     return render(request, 'product.html', context=context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product.html'
+    context_object_name = 'product'
+
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Product
+    form_class = EditingForm
+    success_url = reverse_lazy('catalog:home')
+    template_name = 'product_new.html'
+
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    model = Product
+    form_class = EditingForm
+    success_url = reverse_lazy('catalog:home')
+    template_name = 'product_edit.html'
+
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:home')
+    template_name = 'product_delete.html'

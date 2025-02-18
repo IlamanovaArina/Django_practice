@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load my_tags %}
+{% block title %}Создание{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+
+{% if user.is_authenticated %}
+{% include 'editing.html' %}
+{% else %}
+<p>Вы не имеете доступа к созданию нового продукта, осуществите вход или зарегистрируйтесь</p>
+{% endif %}
+
+{% endblock %}

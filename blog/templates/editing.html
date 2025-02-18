@@ -1,0 +1,14 @@
+    <div class="container mt-5">
+        {% if product.id %}
+        <h1 class="mb-4">Редактирование</h1>
+        {% else %}
+        <h1 class="mb-4">Создание</h1>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {{ form.as_p }}
+            <button type="submit" formmethod="post" class="btn btn-primary">Сохранить</button>
+            <a class="btn btn-secondary" href="javascript:history.back()" role="button">Назад</a>
+        </form>
+    </div>
