@@ -6,10 +6,18 @@
 {% block content %}
 {% csrf_token %}
 
-{% if user.is_authenticated %}
+{% if user.is_staff %}
+<p>Я тут 2</p>
 {% include 'editing.html' %}
+
+{% elif perms.catalog.can_unpublish_product %}
+<p>Я тут 1</p>
+{% csrf_token %}
+{{ form.as_p }}
+
 {% else %}
-<p>Вы не имеете доступа к созданию нового продукта, осуществите вход или зарегистрируйтесь</p>
+<p>Я тут 3</p>
+<p>Вы не имеете доступа редактированию продукта, осуществите вход или зарегистрируйтесь</p>
 {% endif %}
 
 {% endblock %}

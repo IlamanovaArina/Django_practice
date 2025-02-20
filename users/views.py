@@ -1,3 +1,5 @@
+from smtplib import SMTPSenderRefused
+
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.core.mail import send_mail
@@ -21,17 +23,20 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
     def send_welcome_email(self, user_email):
-        subject = 'Добро пожаловать в наш сервис'
-        message = 'Спасибо, что зарегистрировались в нашем сервисе!'
-        from_email = 'admin@gmail.com'
-        recipient_list = [user_email]
-        send_mail(subject, message, from_email, recipient_list)
+        try:
+            subject = 'Добро пожаловать в наш сервис'
+            message = 'Спасибо, что зарегистрировались в нашем сервисе!'
+            from_email = 'admin@gmail.com'
+            recipient_list = [user_email]
+            send_mail(subject, message, from_email, recipient_list)
+        except SMTPSenderRefused:
+            return reverse_lazy('users:error')
 
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('catalog:home')
 
 
 class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('home')
+    next_page = reverse_lazy('catalog:home')

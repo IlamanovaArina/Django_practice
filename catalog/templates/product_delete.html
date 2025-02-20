@@ -4,6 +4,11 @@
 {% block title %}Удаление{% endblock %}
 
 {% block content %}
+
+{% if perms.catalog.can_delete_product %}
+
+<p> Разрешение: can_delete_product - сработало</p>
+
 {% csrf_token %}
 {{ form.as_p }}
 
@@ -12,11 +17,14 @@
         <p>Вы уверены, что хотите удалить "{{ product.name }}"?</p>
         <form method="post">
             {% csrf_token %}
-            {% if user.is_authenticated %}
             <button type="submit" class="btn btn-danger">Удалить</button>
-            {% elif %}
             <a href="javascript:history.back()" class="btn btn-secondary">Отмена</a>
         </form>
     </div>
+
+{% else %}
+<p>Вы не имеете доступа редактированию продукта, осуществите вход или зарегистрируйтесь</p>
+{% endif %}
+
 
 {% endblock %}

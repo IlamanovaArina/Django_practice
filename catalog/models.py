@@ -21,6 +21,7 @@ class Product(models.Model):
     price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    publication_attribute = models.BooleanField(null=True, blank=True, default=False, verbose_name="Признак публикации")
 
     def __str__(self):
         return f'{self.name}  from the category: {self.category}.'
@@ -29,5 +30,7 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['category']
-
-
+        permissions = [
+            ('can_unpublish_product', 'can unpublish product',),
+            ('can_delete_product', 'can delete product')
+        ]

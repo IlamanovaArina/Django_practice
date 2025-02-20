@@ -12,4 +12,5 @@ urlpatterns = [
     path('home/product/new/', ProductCreateView.as_view(), name="product_new"),
     path('product/<int:pk>/edit', ProductUpdateView.as_view(), name="product_edit"),
     path('product/<int:pk>/delete', ProductDeleteView.as_view(), name="product_delete"),
+
 ]

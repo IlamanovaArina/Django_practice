@@ -22,10 +22,15 @@
   </ul>
   <div class="card-body">
     <a class="btn btn-secondary" href="/home/" role="button">Назад</a>
-    {% if user.is_authenticated %}
+
+    {% if perms.catalog.can_unpublish_product %}
     <a href="/product/{{ product.pk }}/edit" class="btn btn-secondary">Редактировать</a>
+    {% endif %}
+
+    {% if perms.catalog.can_delete_product %}
     <a href="/product/{{ product.pk }}/delete" class="btn btn-danger">Удалить</a>
     {% endif %}
+
   </div>
 </div>
 
