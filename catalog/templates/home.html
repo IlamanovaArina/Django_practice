@@ -28,8 +28,12 @@
             </div>
         </div>
         {% endfor %}
-
     </div>
 </div>
+{% if user.is_authenticated %}
+<div class="container">
+    <a class="btn btn-primary" href="/home/product/new/" role="button">Добавить новый товар</a>
+</div>
+{% endif %}
 
 {% endblock %}

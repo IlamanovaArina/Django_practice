@@ -6,18 +6,18 @@
 {% block content %}
 {% csrf_token %}
 
-{% if user.is_staff %}
-<p>Я тут 2</p>
+{% if user.is_staff or user == product.owner %}
 {% include 'editing.html' %}
 
 {% elif perms.catalog.can_unpublish_product %}
-<p>Я тут 1</p>
 {% csrf_token %}
 {{ form.as_p }}
 
 {% else %}
-<p>Я тут 3</p>
-<p>Вы не имеете доступа редактированию продукта, осуществите вход или зарегистрируйтесь</p>
+<div class="card-body">
+    <p>Вы не имеете доступа для редактирования продукта.</p>
+    <a class="btn btn-secondary" href="/home/" role="button">Назад</a>
+</div>
 {% endif %}
 
 {% endblock %}

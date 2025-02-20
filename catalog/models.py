@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import CustomUser
+
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
@@ -22,6 +24,7 @@ class Product(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     publication_attribute = models.BooleanField(null=True, blank=True, default=False, verbose_name="Признак публикации")
+    owner = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Владелец')
 
     def __str__(self):
         return f'{self.name}  from the category: {self.category}.'
