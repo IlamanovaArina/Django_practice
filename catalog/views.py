@@ -48,12 +48,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     #     self.request.user.user_permissions.add(app_perm, change_perm)
     #     self.request.user.save()
 
-class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = EditingForm
     success_url = reverse_lazy('catalog:home')
     template_name = 'product_edit.html'
-    permission_required = 'catalog.can_unpublish_product'
+    # permission_required = 'catalog.can_unpublish_product'
 
     def get_form_class(self):
         user = self.request.user
