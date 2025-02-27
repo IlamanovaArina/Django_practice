@@ -5,12 +5,9 @@
 
 {% block content %}
 
-{% if perms.catalog.can_delete_product %}
+{% if perms.catalog.can_delete_product or user == product.owner %}
 
 <p> Разрешение: can_delete_product - сработало</p>
-
-{% csrf_token %}
-{{ form.as_p }}
 
     <div class="container mt-5">
         <h1 class="mb-4">Удалить товар</h1>
@@ -28,6 +25,5 @@
     <a class="btn btn-secondary" href="/home/" role="button">Назад</a>
 </div>
 {% endif %}
-
 
 {% endblock %}

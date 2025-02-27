@@ -8,6 +8,7 @@
 
 {% if user.is_authenticated %}
 {% include 'editing.html' %}
+
 {% else %}
 <p>Вы не имеете доступа к созданию нового продукта, осуществите вход или зарегистрируйтесь</p>
 {% endif %}

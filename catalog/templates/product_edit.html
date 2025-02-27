@@ -10,8 +10,13 @@
 {% include 'editing.html' %}
 
 {% elif perms.catalog.can_unpublish_product %}
-{% csrf_token %}
-{{ form.as_p }}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form.as_p }}
+    <button type="submit" formmethod="post" class="btn btn-primary">Сохранить</button>
+    <a class="btn btn-secondary" href="javascript:history.back()" role="button">Назад</a>
+</form>
 
 {% else %}
 <div class="card-body">
