@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load cache %}
+{% load my_tags %}
+{% block title %}Продукты по категории{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+
+        {% cache 600 category_list %}
+        <form method="GET" action="#">  <!-- Замените 'products_list' на ваш URL-адрес -->
+            <select name="category" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                <option value="">Выберите категорию</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary m-2">Фильтровать</button>
+        </form>
+        {% endcache %}
+
+        {% for product in products %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <img src="{{ product.imagery | media_filter }}" class="card-img-top" alt="Изображение">
+                    <h1 class="card-title pricing-card-title">$ {{ product.price }}</h1>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ product.description|truncatechars:100 }}</li>
+                    </ul>
+                    <a class="btn btn-primary" href="/product/{{ product.id }}" role="button"
+                       title="Перейти к товару {{ product.name }}">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
