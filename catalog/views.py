@@ -34,7 +34,7 @@ class ProductsBuCategoryListView(ListView):
         category = self.request.GET.get('category')
 
         if category:
-            return get_products_by_category(self.request.GET.get('category'))
+            return get_products_by_category(category)
         return queryset
 
 
