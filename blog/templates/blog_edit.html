@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load my_tags %}
+{% block title %}Редактирование{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+
+{% include 'editing.html' %}
+
+{% endblock %}

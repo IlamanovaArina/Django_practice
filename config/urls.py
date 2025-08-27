@@ -1,7 +1,13 @@
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from config import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('students.urls', namespace='students'))
-]
+    path('', include('catalog.urls', namespace='catalog')),
+    path('', include('blog.urls', namespace='blog')),
+    path('', include('users.urls', namespace='users')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

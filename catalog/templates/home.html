@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load my_tags %}
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+
+{% include 'header.html' %}
+    {% csrf_token %}
+    {{ form.as_p }}
+
+        <div class="card mb-2">
+            <div class="card-header text-center"><p class="mb-0"><strong>Поиск по категории</strong></p></div>
+            <div class="card-body text-center">
+                <a href="/product/category/">Перейти</a>
+            </div>
+        </div>
+
+<!-- Карточка продукта -->
+<div class="container">
+    <div class="row text-center">
+        {% for product in products %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <img src="{{ product.imagery | media_filter }}" class="card-img-top" alt="Изображение">
+                    <h1 class="card-title pricing-card-title">$ {{ product.price }}</h1>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ product.description|truncatechars:100 }}</li>
+                    </ul>
+                        <a class="btn btn-primary" href="/product/{{ product.id }}" role="button" title="Перейти к товару {{ product.name }}">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="container">
+    <a class="btn btn-primary" href="/home/product/new/" role="button">Добавить новый товар</a>
+</div>
+{% endif %}
+
+{% endblock %}
